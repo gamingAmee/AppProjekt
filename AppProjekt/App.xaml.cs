@@ -1,6 +1,8 @@
 ﻿using AppProjekt.Services;
 using AppProjekt.Views;
+using Repository;
 using System;
+using TinyIoC;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,7 +15,10 @@ namespace AppProjekt
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            var container = TinyIoCContainer.Current;
+            container.Register<IGenericRepository, GenericRepository>();
+            container.Register<ITelemetricsService, TelemetricsService>();
+
             MainPage = new AppShell();
         }
 

@@ -12,15 +12,15 @@ using Xamarin.Forms.Xaml;
 
 namespace AppProjekt.Views
 {
-    public partial class ItemsPage : ContentPage
+    public partial class TelemetricsPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        TelemetricsViewModel _viewModel;
 
-        public ItemsPage()
+        public TelemetricsPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new TelemetricsViewModel();
         }
 
         protected override void OnAppearing()

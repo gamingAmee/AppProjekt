@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppProjekt.Views.TelemetricsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:AppProjekt.ViewModels"  
+             xmlns:model="clr-namespace:AppProjekt.Models" 
+             xmlns:microchats="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
+             x:Name="Telemetrics">
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <RefreshView x:DataType="local:TelemetricsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <Grid  >
+            <microchats:ChartView x:Name="Chart1" Chart="{Binding TempChart}"/>
+            <microchats:ChartView />
+        </Grid>
+    </RefreshView>
+</ContentPage>
