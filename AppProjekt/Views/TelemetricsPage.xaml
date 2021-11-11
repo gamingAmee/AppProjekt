@@ -12,9 +12,13 @@
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
     <RefreshView x:DataType="local:TelemetricsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <Grid  >
-            <microchats:ChartView x:Name="Chart1" Chart="{Binding TempChart}"/>
-            <microchats:ChartView />
-        </Grid>
+        <StackLayout>
+            <Picker
+                Title="Pick Time"
+                ItemsSource="{Binding TimePick}"
+                SelectedItem="{Binding SelectedTime}"
+                />
+            <microchats:ChartView Chart="{Binding TempChart}" HeightRequest="300"/>
+        </StackLayout>
     </RefreshView>
 </ContentPage>
