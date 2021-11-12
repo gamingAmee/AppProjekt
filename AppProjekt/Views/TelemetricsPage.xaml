@@ -17,10 +17,9 @@
                 Title="Pick Time"
                 ItemsSource="{Binding TimePick}"
                 SelectedItem="{Binding SelectedTime}"
-                
                 />
-            <microchats:ChartView Chart="{Binding TempChart}" HeightRequest="300"/>
-            <microchats:ChartView Chart="{Binding HumChart}" HeightRequest="300"/>
+            <microchats:ChartView Chart="{Binding TempChart}" HeightRequest="250"/>
+            <microchats:ChartView Chart="{Binding HumChart}" HeightRequest="250"/>
         </StackLayout>
     </RefreshView>
 </ContentPage>

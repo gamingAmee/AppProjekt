@@ -82,14 +82,14 @@ namespace AppProjekt.ViewModels
         {
             foreach (var item in Telemetrics.OrderByDescending(t => t.Timestamp).Take(10))
             {
-                var temp = Convert.ToDecimal(item.Temperatur);
+                var temp = float.Parse(item.Temperatur);
                 var tempEntry = new ChartEntry((float)temp)
                 {
                     Label = item.Timestamp.ToString(),
                     ValueLabel = item.Temperatur,
                 };
-                var hum = Convert.ToDecimal(item.Humidity);
-                var humEntry = new ChartEntry((float)hum)
+                var hum = float.Parse(item.Humidity);
+                var humEntry = new ChartEntry(hum)
                 {
                     Label = item.Timestamp.ToString(),
                     ValueLabel = item.Humidity
@@ -102,7 +102,7 @@ namespace AppProjekt.ViewModels
             {
                 Entries = TempEntries,
                 PointSize = 10,
-                LineSize = 10,
+                LineMode = LineMode.Spline,
                 LabelOrientation = Orientation.Vertical,
                 ValueLabelOrientation = Orientation.Horizontal,
                 LabelTextSize = 30
@@ -111,7 +111,7 @@ namespace AppProjekt.ViewModels
             {
                 Entries = HumEntries,
                 PointSize = 10,
-                LineSize = 10,
+                LineMode = LineMode.Spline,
                 LabelOrientation = Orientation.Vertical,
                 ValueLabelOrientation = Orientation.Horizontal,
                 LabelTextSize = 30
@@ -128,14 +128,14 @@ namespace AppProjekt.ViewModels
                 case "1 min":
                     foreach (var item in Telemetrics.Where(t => t.Timestamp.Minute == lastTelemetrics.Timestamp.Minute).OrderByDescending(t => t.Timestamp))
                     {
-                        var temp = Convert.ToDecimal(item.Temperatur);
-                        var tempEntry = new ChartEntry((float)temp)
+                        var temp = float.Parse(item.Temperatur);
+                        var tempEntry = new ChartEntry(temp)
                         {
                             Label = item.Timestamp.ToString(),
                             ValueLabel = item.Temperatur,
                         };
-                        var hum = Convert.ToDecimal(item.Humidity);
-                        var humEntry = new ChartEntry((float)hum)
+                        var hum = float.Parse(item.Humidity);
+                        var humEntry = new ChartEntry(hum)
                         {
                             Label = item.Timestamp.ToString(),
                             ValueLabel = item.Humidity,
@@ -147,7 +147,7 @@ namespace AppProjekt.ViewModels
                     {
                         Entries = TempEntries,
                         PointSize = 10,
-                        LineSize = 10,
+                        LineMode = LineMode.Spline,
                         LabelOrientation = Orientation.Vertical,
                         ValueLabelOrientation = Orientation.Horizontal,
                         LabelTextSize = 30
@@ -156,7 +156,7 @@ namespace AppProjekt.ViewModels
                     {
                         Entries = HumEntries,
                         PointSize = 10,
-                        LineSize = 10,
+                        LineMode = LineMode.Spline,
                         LabelOrientation = Orientation.Vertical,
                         ValueLabelOrientation = Orientation.Horizontal,
                         LabelTextSize = 30
@@ -165,14 +165,14 @@ namespace AppProjekt.ViewModels
                 case "10 mins":
                     foreach (var item in Telemetrics.Where(t => t.Timestamp.Minute <= lastTelemetrics.Timestamp.Minute).OrderByDescending(t => t.Timestamp))
                     {
-                        var temp = Convert.ToDecimal(item.Temperatur);
-                        var tempEntry = new ChartEntry((float)temp)
+                        var temp = float.Parse(item.Temperatur);
+                        var tempEntry = new ChartEntry(temp)
                         {
                             Label = item.Timestamp.ToString(),
                             ValueLabel = item.Temperatur,
                         };
-                        var hum = Convert.ToDecimal(item.Humidity);
-                        var humEntry = new ChartEntry((float)hum)
+                        var hum = float.Parse(item.Humidity);
+                        var humEntry = new ChartEntry(hum)
                         {
                             Label = item.Timestamp.ToString(),
                             ValueLabel = item.Humidity,
@@ -184,7 +184,7 @@ namespace AppProjekt.ViewModels
                     {
                         Entries = TempEntries,
                         PointSize = 10,
-                        LineSize = 10,
+                        LineMode = LineMode.Spline,
                         LabelOrientation = Orientation.Vertical,
                         ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
@@ -193,17 +193,17 @@ namespace AppProjekt.ViewModels
                     {
                         Entries = HumEntries,
                         PointSize = 10,
-                        LineSize = 10,
+                        LineMode = LineMode.Spline,
                         LabelOrientation = Orientation.Vertical,
                         ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
                     };
                     break;
                 case "1 hour":
-                    foreach (var item in Telemetrics.Where(t => t.Timestamp.Hour <= lastTelemetrics.Timestamp.Hour).OrderByDescending(t => t.Timestamp))
+                    foreach (var item in Telemetrics.Where(t => t.Timestamp.Hour == lastTelemetrics.Timestamp.Hour).OrderByDescending(t => t.Timestamp))
                     {
-                        var temp = Convert.ToDecimal(item.Temperatur);
-                        var tempEntry = new ChartEntry((float)temp)
+                        var temp = float.Parse(item.Temperatur);
+                        var tempEntry = new ChartEntry(temp)
                         {
                             Label = item.Timestamp.ToString(),
                             ValueLabel = item.Temperatur,
@@ -221,7 +221,7 @@ namespace AppProjekt.ViewModels
                     {
                         Entries = TempEntries,
                         PointSize = 10,
-                        LineSize = 10,
+                        LineMode = LineMode.Spline,
                         LabelOrientation = Orientation.Vertical,
                         ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
@@ -230,7 +230,7 @@ namespace AppProjekt.ViewModels
                     {
                         Entries = HumEntries,
                         PointSize = 10,
-                        LineSize = 10,
+                        LineMode = LineMode.Spline,
                         LabelOrientation = Orientation.Vertical,
                         ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
