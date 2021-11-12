@@ -32,7 +32,6 @@ namespace AppProjekt.ViewModels
             set
             {
                 SetProperty(ref _selectedTime, value);
-                UpdateCharts(_selectedTime);
             }
         }
 
@@ -44,12 +43,14 @@ namespace AppProjekt.ViewModels
         #endregion
 
         public Command LoadItemsCommand { get; }
+        public Command UpdateChartsCommand { get; }
 
         public TelemetricsViewModel()
         {
             Title = "Telemetrics";
             Telemetrics = new ObservableCollection<Telemetrics>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            UpdateChartsCommand = new Command(() => UpdateCharts(_selectedTime));
         }
 
         async Task ExecuteLoadItemsCommand()

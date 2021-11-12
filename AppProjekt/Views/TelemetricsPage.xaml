@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:AppProjekt.ViewModels"  
              xmlns:model="clr-namespace:AppProjekt.Models" 
              xmlns:microchats="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Name="Telemetrics">
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
@@ -13,13 +14,15 @@
     -->
     <RefreshView x:DataType="local:TelemetricsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <StackLayout>
-            <Picker
-                Title="Pick Time"
-                ItemsSource="{Binding TimePick}"
-                SelectedItem="{Binding SelectedTime}"
-                />
+            <Picker Title="Pick Time" ItemsSource="{Binding TimePick}" SelectedItem="{Binding SelectedTime}">
+                <Picker.Behaviors>
+                <xct:EventToCommandBehavior 
+                    EventName="SelectedIndexChanged"
+                    Command="{Binding UpdateChartsCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
             <microchats:ChartView Chart="{Binding TempChart}" HeightRequest="250"/>
-            <microchats:ChartView Chart="{Binding HumChart}" HeightRequest="250"/>
+                    <microchats:ChartView Chart="{Binding HumChart}" HeightRequest="250"/>
         </StackLayout>
     </RefreshView>
 </ContentPage>
