@@ -186,7 +186,7 @@ namespace AppProjekt.ViewModels
                         PointSize = 10,
                         LineSize = 10,
                         LabelOrientation = Orientation.Vertical,
-                        ValueLabelOrientation = Orientation.Horizontal,
+                        ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
                     };
                     HumChart = new LineChart()
@@ -195,7 +195,7 @@ namespace AppProjekt.ViewModels
                         PointSize = 10,
                         LineSize = 10,
                         LabelOrientation = Orientation.Vertical,
-                        ValueLabelOrientation = Orientation.Horizontal,
+                        ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
                     };
                     break;
@@ -223,7 +223,7 @@ namespace AppProjekt.ViewModels
                         PointSize = 10,
                         LineSize = 10,
                         LabelOrientation = Orientation.Vertical,
-                        ValueLabelOrientation = Orientation.Horizontal,
+                        ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
                     };
                     HumChart = new LineChart()
@@ -232,7 +232,7 @@ namespace AppProjekt.ViewModels
                         PointSize = 10,
                         LineSize = 10,
                         LabelOrientation = Orientation.Vertical,
-                        ValueLabelOrientation = Orientation.Horizontal,
+                        ValueLabelOrientation = Orientation.Vertical,
                         LabelTextSize = 30
                     };
                     break;
@@ -240,8 +240,8 @@ namespace AppProjekt.ViewModels
                     break;
             }
         }
-
         #endregion
+
         public void OnAppearing()
         {
             IsBusy = true;
