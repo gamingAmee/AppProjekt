@@ -1,8 +1,10 @@
 ﻿using AppProjekt.Services;
 using AppProjekt.Views;
+using MonkeyCache.FileStore;
 using Repository;
 using System;
 using TinyIoC;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,6 +21,7 @@ namespace AppProjekt
             container.Register<IGenericRepository, GenericRepository>();
             container.Register<ITelemetricsService, TelemetricsService>();
 
+            Barrel.ApplicationId = AppInfo.PackageName;
             MainPage = new AppShell();
         }
 

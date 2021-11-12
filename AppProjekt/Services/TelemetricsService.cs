@@ -1,11 +1,13 @@
 ﻿using AppProjekt.Constants;
 using AppProjekt.Models;
+using MonkeyCache.FileStore;
 using Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using TinyIoC;
+using Xamarin.Essentials;
 
 namespace AppProjekt.Services
 {
@@ -23,8 +25,22 @@ namespace AppProjekt.Services
             {
                 Path = $"{ApiConstants.TelemetricsEndpoint}/GetTelemetryData"
             };
+            string url = builder.Path;
+
+            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            {
+                return Barrel.Current.Get<IEnumerable<Telemetrics>>(key: url);
+            }
+            if (!Barrel.Current.IsExpired(key: url))
+            {
+                return Barrel.Current.Get<IEnumerable<Telemetrics>>(key: url);
+            }
             //Thread.Sleep(3000); // Simulerer 3 sekunders forsinkelte
-            return await _genericRepository.GetAsync<IEnumerable<Telemetrics>>(builder.ToString());
+            var telemetrics = await _genericRepository.GetAsync<IEnumerable<Telemetrics>>(builder.ToString());
+
+            Barrel.Current.Add(key: url, data: telemetrics, expireIn: TimeSpan.FromSeconds(20));
+
+            return telemetrics;
         }
 
         public async Task<Telemetrics> GetTelemetricsAsync(string id)
