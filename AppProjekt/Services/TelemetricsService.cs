@@ -35,7 +35,6 @@ namespace AppProjekt.Services
             {
                 return Barrel.Current.Get<IEnumerable<Telemetrics>>(key: url);
             }
-            //Thread.Sleep(3000); // Simulerer 3 sekunders forsinkelte
             var telemetrics = await _genericRepository.GetAsync<IEnumerable<Telemetrics>>(builder.ToString());
 
             Barrel.Current.Add(key: url, data: telemetrics, expireIn: TimeSpan.FromSeconds(20));

@@ -164,7 +164,7 @@ namespace AppProjekt.ViewModels
                     };
                     break;
                 case "10 mins":
-                    foreach (var item in Telemetrics.Where(t => t.Timestamp.Minute <= lastTelemetrics.Timestamp.Minute).OrderByDescending(t => t.Timestamp))
+                    foreach (var item in Telemetrics.Where(t => t.Timestamp >= lastTelemetrics.Timestamp.AddMinutes(-10)).OrderByDescending(t => t.Timestamp))
                     {
                         var temp = float.Parse(item.Temperatur);
                         var tempEntry = new ChartEntry(temp)
@@ -201,19 +201,24 @@ namespace AppProjekt.ViewModels
                     };
                     break;
                 case "1 hour":
-                    foreach (var item in Telemetrics.Where(t => t.Timestamp.Hour == lastTelemetrics.Timestamp.Hour).OrderByDescending(t => t.Timestamp))
+                    var items = Telemetrics.Where(t => t.Timestamp >= lastTelemetrics.Timestamp.AddMinutes(-60)).OrderByDescending(t => t.Timestamp).GroupBy(t => t.Timestamp.Minute)
+                       .Select(g => new
+                       {
+                           Temp = g.Average(p => Convert.ToDecimal(p.Temperatur)),
+                           Hum = g.Average(h => Convert.ToDecimal(h.Humidity)),
+                           Timestamp = g.Key
+                       });
+                    foreach (var item in items)
                     {
-                        var temp = float.Parse(item.Temperatur);
-                        var tempEntry = new ChartEntry(temp)
+                        var tempEntry = new ChartEntry((float)item.Temp)
                         {
                             Label = item.Timestamp.ToString(),
-                            ValueLabel = item.Temperatur,
+                            ValueLabel = item.Temp.ToString("N"),
                         };
-                        var hum = Convert.ToDecimal(item.Humidity);
-                        var humEntry = new ChartEntry((float)hum)
+                        var humEntry = new ChartEntry((float)item.Hum)
                         {
                             Label = item.Timestamp.ToString(),
-                            ValueLabel = item.Humidity,
+                            ValueLabel = item.Hum.ToString("N"),
                         };
                         TempEntries.Add(tempEntry);
                         HumEntries.Add(humEntry);

@@ -21,8 +21,10 @@
                     Command="{Binding UpdateChartsCommand}"/>
                 </Picker.Behaviors>
             </Picker>
+            <Label>Temperatur</Label>
             <microchats:ChartView Chart="{Binding TempChart}" HeightRequest="250"/>
-                    <microchats:ChartView Chart="{Binding HumChart}" HeightRequest="250"/>
+            <Label>Humidity</Label>
+            <microchats:ChartView Chart="{Binding HumChart}" HeightRequest="250"/>
         </StackLayout>
     </RefreshView>
 </ContentPage>
