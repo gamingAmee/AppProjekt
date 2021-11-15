@@ -201,7 +201,7 @@ namespace AppProjekt.ViewModels
                     };
                     break;
                 case "1 hour":
-                    var items = Telemetrics.Where(t => t.Timestamp >= lastTelemetrics.Timestamp.AddMinutes(-60)).OrderByDescending(t => t.Timestamp).GroupBy(t => t.Timestamp.Minute)
+                    var items = Telemetrics.Where(t => t.Timestamp >= lastTelemetrics.Timestamp.AddMinutes(-60)).OrderByDescending(t => t.Timestamp).GroupBy(t => t.Timestamp.Minute / TimeSpan.FromMinutes(10).Minutes)
                        .Select(g => new
                        {
                            Temp = g.Average(p => Convert.ToDecimal(p.Temperatur)),
