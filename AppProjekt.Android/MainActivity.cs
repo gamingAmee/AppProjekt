@@ -1,13 +1,19 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Android.Content;
 
 namespace AppProjekt.Droid
 {
     [Activity(Label = "AppProjekt", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    [IntentFilter(
+        new[] { Intent.ActionView },
+        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+        DataScheme = "com.companyname.appprojekt",
+        DataHost = "dev-1odmmset.eu.auth0.com",
+        DataPathPrefix = "/android/com.companyname.appprojekt/callback")]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -23,6 +29,12 @@ namespace AppProjekt.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        protected override async void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+
+            Auth0.OidcClient.ActivityMediator.Instance.Send(intent.DataString);
         }
     }
 }

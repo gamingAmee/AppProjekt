@@ -75,7 +75,10 @@
 
 
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:TelemetricsPage}" />
+        <ShellContent Route="TelemetricsPage" ContentTemplate="{DataTemplate local:TelemetricsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Login" Icon="icon_feed.png">
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </FlyoutItem>
 
 </Shell>

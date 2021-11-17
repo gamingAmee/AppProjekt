@@ -4,7 +4,7 @@ namespace AppProjekt.Constants
 {
     public static class ApiConstants
     {
-        public static string BaseApiUrl = "https://azureiothubfunctions.azurewebsites.net/";
-        public const string TelemetricsEndpoint = "api";
+        public static string BaseApiUrl = Device.RuntimePlatform == Device.Android ? "https://10.0.2.2:5001/" : "https://localhost:5001/";
+        public const string TelemetricsEndpoint = "api/telemetrics";
     }
 }
