@@ -1,15 +1,12 @@
-﻿using IdentityModel.OidcClient;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AppProjekt.Auth;
 using System.Threading.Tasks;
 
 namespace AppProjekt.Services
 {
     public interface IAuthenticationService
     {
-        Task<LoginResult> Authenticate();
-
+        Task<AuthenticationResult> Authenticate();
+        AuthenticationResult AuthenticationResult { get; }
         Task Logout();
     }
 }

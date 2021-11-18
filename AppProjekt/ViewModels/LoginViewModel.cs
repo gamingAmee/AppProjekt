@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
+using AppProjekt.Auth;
 using AppProjekt.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -11,32 +13,39 @@ namespace AppProjekt.ViewModels
     {
         private readonly IAuthenticationService _authenticationService;
 
-        public Command LoginCommand { get; }
-        public Command LogOutCommand { get; }
-
         public LoginViewModel()
         {
             _authenticationService = DependencyService.Get<IAuthenticationService>();
-            LoginCommand = new Command(OnLoginClicked);
-            LogOutCommand = new Command(OnLogoutClicked);
         }
 
-
-        private async void OnLoginClicked()
+        private bool _isLoggedIn;
+        public bool IsLoggedIn
         {
-            var authenticationResult = await _authenticationService.Authenticate();
-            if (!authenticationResult.IsError)
+            get => _isLoggedIn;
+            set => SetProperty(ref _isLoggedIn, value);
+        }
+
+        Command loginCommand;
+        public Command LoginCommand => loginCommand
+            ?? (loginCommand = new Command(async () =>
             {
-                await SecureStorage.SetAsync("accessToken", authenticationResult.AccessToken);
-            }
+                AuthenticationResult authenticationResult = await _authenticationService.Authenticate();
+                if (!authenticationResult.IsError)
+                {
+                    await SecureStorage.SetAsync("accessToken", authenticationResult.AccessToken);
+                    IsLoggedIn = true;
+                }
 
-            await Shell.Current.GoToAsync("TelemetricsPage");
-        }
+                await Shell.Current.GoToAsync($"//TelemetricsPage");
+            }));
 
-        private async void OnLogoutClicked()
-        {
-            await _authenticationService.Logout();
-            SecureStorage.Remove("accessToken");
-        }
+        Command logoutCommand;
+        public Command LogoutCommand => logoutCommand
+            ?? (logoutCommand = new Command(async () =>
+            {
+                await _authenticationService.Logout();
+                SecureStorage.Remove("accessToken");
+                IsLoggedIn = false;
+            }));
     }
 }

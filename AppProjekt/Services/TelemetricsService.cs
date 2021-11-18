@@ -27,6 +27,8 @@ namespace AppProjekt.Services
             };
             string url = builder.Path;
 
+            var accessToken = await SecureStorage.GetAsync("accessToken");
+
             if (Connectivity.NetworkAccess == NetworkAccess.None)
             {
                 return Barrel.Current.Get<IEnumerable<Telemetrics>>(key: url);
@@ -35,7 +37,7 @@ namespace AppProjekt.Services
             {
                 return Barrel.Current.Get<IEnumerable<Telemetrics>>(key: url);
             }
-            var telemetrics = await _genericRepository.GetAsync<IEnumerable<Telemetrics>>(builder.ToString());
+            var telemetrics = await _genericRepository.GetAsync<IEnumerable<Telemetrics>>(builder.ToString(), accessToken);
 
             Barrel.Current.Add(key: url, data: telemetrics, expireIn: TimeSpan.FromSeconds(20));
 

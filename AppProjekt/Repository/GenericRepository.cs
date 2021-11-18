@@ -23,7 +23,7 @@ namespace Repository
         }
 
         #region GET
-        public async Task<T> GetAsync<T>(string uri, string authToken = "")
+        public async Task<T> GetAsync<T>(string uri, string authToken)
         {
             try
             {

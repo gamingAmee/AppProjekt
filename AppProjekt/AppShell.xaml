@@ -73,12 +73,13 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-
-    <FlyoutItem Title="Browse" Icon="icon_feed.png">
-        <ShellContent Route="TelemetricsPage" ContentTemplate="{DataTemplate local:TelemetricsPage}" />
-    </FlyoutItem>
+    
     <FlyoutItem Title="Login" Icon="icon_feed.png">
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Browse" Icon="icon_feed.png">
+        <ShellContent Route="TelemetricsPage" ContentTemplate="{DataTemplate local:TelemetricsPage}" />
+    </FlyoutItem>
+
 
 </Shell>
