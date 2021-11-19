@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:viewmodels="clr-namespace:AppProjekt.ViewModels" xmlns:converters="clr-namespace:AppProjekt.Converter"
              x:DataType="viewmodels:LoginViewModel"
+             Shell.NavBarIsVisible="False"
              x:Class="AppProjekt.Views.LoginPage">
     
     <ContentPage.Resources>
